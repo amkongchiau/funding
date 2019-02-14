@@ -6,17 +6,17 @@
  * @license MIT
  -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 
 <head>
     <meta charset="utf-8">
     <!-- <meta http&#45;equiv="X&#45;UA&#45;Compatible" content="IE=edge"> -->
     <!-- <meta name="viewport" content="width=device&#45;width, initial&#45;scale=1, shrink&#45;to&#45;fit=no"> -->
-    <!-- <meta name="description" content="Open Hack Farm 收支開放資料"> -->
+    <!-- <meta name="description" content="暗光鳥樂團收支開放資料"> -->
     <!-- <meta name="author" content="Łukasz Holeczek"> -->
     <!-- <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js"> -->
     <!-- <link rel="shortcut icon" href="img/favicon.png"> -->
-    <title>Open Hack Farm 收支開放資料</title>
+    <title>暗光鳥樂團收支明細</title>
 
     <!-- Icons -->
     <link href="vendors/css/font-awesome.min.css" rel="stylesheet">
@@ -29,7 +29,7 @@
     <script src="https://chriszarate.github.io/sheetrock/dist/sheetrock.min.js"></script>
     <script>
         sheetrock({
-            url: "https://docs.google.com/spreadsheets/d/1Xd55Uew9CjjUMBkyYPmuvufxokXDlCXVozOu1hwHF1Q/edit#gid=903727567",
+            url: "https://docs.google.com/spreadsheets/d/1I6Y6Gy1hBiQ2Nb-28OytMy23Y2Lw_eKqlPuGhU3xoJs/edit#gid=0",
             query: "select A,L ORDER BY A DESC LIMIT 10",
             callback: function(error, options, response) {
                 if(response['rows'].length > 1) {
@@ -46,61 +46,17 @@
                     total = response['rows'][0]['cellsArray'][1];
                 }
                 total_string = '$ ' + total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-                document.getElementById('total_1').innerHTML = total_string;
+                document.getElementById('total').innerHTML = total_string;
             }
         });
 
         sheetrock({
-            url: "https://docs.google.com/spreadsheets/d/1Xd55Uew9CjjUMBkyYPmuvufxokXDlCXVozOu1hwHF1Q/edit#gid=0",
-            query: "select A,L ORDER BY A DESC LIMIT 10",
-            callback: function(error, options, response) {
-                if(response['rows'].length > 1) {
-                    total = response['rows'][1]['cellsArray'][1];
-
-                    var labels = new Array();
-                    var data = new Array()
-                    for(var i=response['rows'].length-1; i > 0; i--) {
-                        labels.push(response['rows'][i]['cellsArray'][0]);
-                        data.push(response['rows'][i]['cellsArray'][1]);
-                    }
-                    draw_chart('#card-chart2', $.brandPrimary, labels, data);
-                } else {
-                    total = response['rows'][0]['cellsArray'][1];
-                }
-                total_string = '$ ' + total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-                document.getElementById('total_2').innerHTML = total_string;
-            }
-        });
-
-        sheetrock({
-            url: "https://docs.google.com/spreadsheets/d/1Xd55Uew9CjjUMBkyYPmuvufxokXDlCXVozOu1hwHF1Q/edit#gid=27671890",
-            query: "select A,L ORDER BY A DESC LIMIT 10",
-            callback: function(error, options, response) {
-                if(response['rows'].length > 1) {
-                    total = response['rows'][1]['cellsArray'][1];
-
-                    var labels = new Array();
-                    var data = new Array()
-                    for(var i=response['rows'].length-1; i > 0; i--) {
-                        labels.push(response['rows'][i]['cellsArray'][0]);
-                        data.push(response['rows'][i]['cellsArray'][1]);
-                    }
-                    draw_chart('#card-chart3', $.brandWarning, labels, data);
-                } else {
-                    total = response['rows'][0]['cellsArray'][0];
-                }
-                total_string = '$ ' + total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-                document.getElementById('total_3').innerHTML = total_string;
-            }
-        });
-
-        sheetrock({
-            url: "https://docs.google.com/spreadsheets/d/1Xd55Uew9CjjUMBkyYPmuvufxokXDlCXVozOu1hwHF1Q/edit#gid=1066908246",
+            url: "https://docs.google.com/spreadsheets/d/1I6Y6Gy1hBiQ2Nb-28OytMy23Y2Lw_eKqlPuGhU3xoJs/edit#gid=0",
             query: "select A,B,C,D,G,H,I ORDER BY A DESC",
             callback: function(error, options, response) {
                 html_funding_list = '';
                 if(response['rows'].length > 1) {
-                    for(var i=0; i < response['rows'].length; i++) {
+                    for(var i=1; i < response['rows'].length; i++) {
                         html_funding_list += '<tr>';
                         html_funding_list += '   <td>' + response['rows'][i]['cellsArray'][0] + '</td>';
                         if(response['rows'][i]['cellsArray'][1] == "OCF") {
@@ -325,41 +281,15 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="card text-white bg-success">
+                        <div class="card text-white bg-dark">
                             <div class="card-body pb-0">
                                 <button type="button" class="btn btn-transparent p-0 float-right">
                                 </button>
-                                <h4 id="total_1" class="mb-0"></h4>
-                                <p onclick="location.href='https://ocf.tw/p/2017/openhackfarm/';"><u>財團法人開放文化基金會</u> (統一編號：38552170)</p>
+                                <h4 id="total" class="mb-0"></h4>
+                                <p onclick="location.href='https://www.facebook.com/AmKongChiau/';"><u>暗光鳥樂團</u></p>
                             </div>
                             <div class="chart-wrapper px-3" style="height:70px;"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
                                 <canvas id="card-chart1" class="chart chart-line chartjs-render-monitor" height="70" width="216" style="display: block;"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card text-white bg-primary">
-                            <div class="card-body pb-0">
-                                <button type="button" class="btn btn-transparent p-0 float-right">
-                                </button>
-                                <h4 id="total_2" class="mb-0"></h4>
-                                <p>Open Hack Farm 本地帳戶</p>
-                            </div>
-                            <div class="chart-wrapper px-3" style="height:70px;"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                                <canvas id="card-chart2" class="chart chart-line chartjs-render-monitor" height="70" width="216" style="display: block;"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card text-white bg-warning">
-                            <div class="card-body pb-0">
-                                <button type="button" class="btn btn-transparent p-0 float-right">
-                                </button>
-                                <h4 id="total_3" class="mb-0"></h4>
-                                <p>Open Hack Farm 零用金</p>
-                            </div>
-                            <div class="chart-wrapper px-3" style="height:70px;"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                                <canvas id="card-chart3" class="chart chart-line chartjs-render-monitor" height="70" width="216" style="display: block;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -369,7 +299,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <i class="fa fa-align-justify"></i><a href="https://docs.google.com/spreadsheets/d/1Xd55Uew9CjjUMBkyYPmuvufxokXDlCXVozOu1hwHF1Q/edit?usp=sharing">收支列表</a>
+                                <i class="fa fa-align-justify"></i><a href="https://docs.google.com/spreadsheets/d/1I6Y6Gy1hBiQ2Nb-28OytMy23Y2Lw_eKqlPuGhU3xoJs/edit?usp=sharing">收支明細</a>
                             </div>
                             <div class="card-body">
                                 <table class="table">
